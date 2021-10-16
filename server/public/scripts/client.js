@@ -18,6 +18,7 @@ function readyNow() {
 }
 
 function addNewTask() {
+    $(this).closest('div').addClass('hidden');
     console.log('submit clicked');
     let newTask = {
         task: $('#taskIn').val(),
@@ -26,7 +27,7 @@ function addNewTask() {
     }
     console.log('this is new task: ', newTask);
     
-    // clear the inputs
+    // clear the inputs and hide them
     $('#addTaskContainer').children().val('');
     // ajax call to server
     $.ajax({
