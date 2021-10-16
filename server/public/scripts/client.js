@@ -24,15 +24,17 @@ function addNewTask() {
         due_date: $('#dueDateIn').val(),
         priority: $('#priorityIn').val()
     }
+    console.log('this is new task: ', newTask);
+    
     // clear the inputs
     $('#addTaskContainer').children().val('');
     // ajax call to server
     $.ajax({
         method: 'POST',
         url: "/todo",
-        data: {newTask}
+        data: newTask
     }).then(function(response) {
-        console.log('POST response from server: ', response');
+        console.log('POST response from server: ', response);
         displayList()
     }).catch(function(error) {
         console.log('Error on POST: ', error);
@@ -127,7 +129,7 @@ function displayList() {
         console.log('response from server: ', res);
         render(res);
     }).catch((err) => {
-        console.log('Error in retrieving from DB', err);
+        console.log('Error in retrieving from server', err);
         res.sendStatus(500);
     })
 }

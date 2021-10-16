@@ -38,6 +38,27 @@ router.get('/', (req, res) => {
         })
 })
 
+router.post('/', (req, res) => {
+    console.log('in router.post');
+    
+    const newTask = req.body;
+    console.log('this is req.body as newTask: ', newTask);
+    console.log('this is newTask.task: ', newTask.task);
+    
+    let queryText = `
+    INSERT INTO "todo" ("task", "due_date", "priority")
+    VALUES ($1, $2, $3);
+    `
+    pool.query(queryText, [newTask.task, newTask.due_date, newTask.priority])
+        .then((result) => {
+            console.log('Task Added: ', result);
+            res.sendStatus(201)
+        }).catch((err) => {
+            console.log('Error adding new Task: ', err);
+            res.sendStatus(500)
+        })
+})
+
 router.put('/:id', (req, res) => {
     let id = req.params.id;
     let queryText = `
