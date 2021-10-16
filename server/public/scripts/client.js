@@ -7,6 +7,24 @@ function readyNow() {
     // initial display
     displayList();
 
+    // dynamic click listeners
+    $('#container').on('click', '.markCompletedBtn', markComplete);
+
+}
+
+// function to mark a task complete and re-render the DOM
+function markComplete() {
+    let id = $(this).closest('tr').data('id')
+    console.log('in markComplete with this id: ', id);
+    // send PUT request
+    $.ajax({
+        method: 'PUT',
+        url: `/todo/${id}`,
+        data: {}
+    }).then(function (response) {
+        console.log(response);
+        displayList();
+    })
 }
 
 // function to render to the DOM
@@ -25,7 +43,7 @@ function render(resultsObject) {
                 <td>${item.task}</td>
                 <td>${item.priority}</td>
                 <td>${newDate}</td>
-                <td><button id="markCompletedBtn">Mark Completed?</button></td>
+                <td><button class="markCompletedBtn">Mark Completed?</button></td>
         `
         elToday.append(inputText);
     }
@@ -41,7 +59,7 @@ function render(resultsObject) {
                 <td>${item.task}</td>
                 <td>${item.priority}</td>
                 <td>${newDate}</td>
-                <td><button id="markCompletedBtn">Mark Completed?</button></td>
+                <td><button class="markCompletedBtn">Mark Completed?</button></td>
         `
         elSoon.append(inputText);
     }

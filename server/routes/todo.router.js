@@ -38,4 +38,19 @@ router.get('/', (req, res) => {
         })
 })
 
+router.put('/:id', (req, res) => {
+    let id = req.params.id;
+    let queryText = `
+        UPDATE "todo"
+        SET "completed_date" = NOW()
+        WHERE "id" = $1;
+    `
+    pool.query(queryText, [id])
+        .then(() => {
+            res.sendStatus(200)
+        }).catch(() => {
+            res.sendStatus(500)
+        })
+})
+
 module.exports = router;
