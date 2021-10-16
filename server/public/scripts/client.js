@@ -18,29 +18,33 @@ function readyNow() {
 }
 
 function addNewTask() {
-    $(this).closest('div').addClass('hidden');
-    console.log('submit clicked');
-    let newTask = {
-        task: $('#taskIn').val(),
-        due_date: $('#dueDateIn').val(),
-        priority: $('#priorityIn').val()
+    if(!$('#dueDateIn').val()) {
+        alert('Due Date cannot be blank')
+    } else {
+        $(this).closest('div').addClass('hidden');
+        console.log('submit clicked');
+        let newTask = {
+            task: $('#taskIn').val(),
+            due_date: $('#dueDateIn').val(),
+            priority: $('#priorityIn').val()
+        }
+        console.log('this is new task: ', newTask);
+        
+        // clear the inputs and hide them
+        $('#addTaskContainer').children().val('');
+        // ajax call to server
+        $.ajax({
+            method: 'POST',
+            url: "/todo",
+            data: newTask
+        }).then(function(response) {
+            console.log('POST response from server: ', response);
+            displayList()
+        }).catch(function(error) {
+            console.log('Error on POST: ', error);
+            alert('Error posting new task')
+        })
     }
-    console.log('this is new task: ', newTask);
-    
-    // clear the inputs and hide them
-    $('#addTaskContainer').children().val('');
-    // ajax call to server
-    $.ajax({
-        method: 'POST',
-        url: "/todo",
-        data: newTask
-    }).then(function(response) {
-        console.log('POST response from server: ', response);
-        displayList()
-    }).catch(function(error) {
-        console.log('Error on POST: ', error);
-        alert('Error posting new task')
-    })
 }
 
 // a function to remove a class
