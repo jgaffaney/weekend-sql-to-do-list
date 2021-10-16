@@ -7,9 +7,18 @@ function readyNow() {
     // initial display
     displayList();
 
+    // click listeners
+    $('#addTaskBtn').on('click', removeClass)
+
+
     // dynamic click listeners
     $('#container').on('click', '.markCompletedBtn', markComplete);
 
+}
+
+// a function to remove a class
+function removeClass() {
+    $(this).siblings('div').removeClass('hidden');
 }
 
 // function to mark a task complete and re-render the DOM
