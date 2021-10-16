@@ -5,7 +5,8 @@ const pool = require('../modules/pool.js')
 router.get('/', (req, res) => {
     console.log('in todo.router GET');
     let queryText = `
-    SELECT * FROM "todo";
+    SELECT * FROM "todo"
+    ORDER BY "due_date", "priority";
     `
     pool.query(queryText)
         .then((result) => {
