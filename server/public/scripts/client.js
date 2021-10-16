@@ -17,11 +17,14 @@ function render(resultsObject) {
     let elComplete = $('#completedBody');
     elToday.empty();
     for(item of resultsObject.today) {
+        //convert date to easier to read
+        let newDate = item.due_date.split('T')[0]
+
         let inputText = `
-            <tr>
+            <tr data-id="${item.id}">
                 <td>${item.task}</td>
                 <td>${item.priority}</td>
-                <td>${item.due_date}</td>
+                <td>${newDate}</td>
                 <td><button id="markCompletedBtn">Mark Completed?</button></td>
         `
         elToday.append(inputText);
@@ -30,11 +33,14 @@ function render(resultsObject) {
     // render Due Soon
     elSoon.empty();
     for(item of resultsObject.soon) {
+        // convert date to easier to read
+        let newDate = item.due_date.split('T')[0]
+        
         let inputText = `
-            <tr>
+            <tr data-id="${item.id}">
                 <td>${item.task}</td>
                 <td>${item.priority}</td>
-                <td>${item.due_date}</td>
+                <td>${newDate}</td>
                 <td><button id="markCompletedBtn">Mark Completed?</button></td>
         `
         elSoon.append(inputText);
@@ -43,12 +49,15 @@ function render(resultsObject) {
     // render completed
     elComplete.empty();
     for(item of resultsObject.completed) {
+        // convert date to easier to read
+        let newDate = item.due_date.split('T')[0]
+
         let inputText = `
-            <tr>
+            <tr data-id="${item.id}">
                 <td>${item.task}</td>
                 <td>${item.priority}</td>
-                <td>${item.due_date}</td>
-                <td><button id="markCompletedBtn">Mark Completed?</button></td>
+                <td>${newDate}</td>
+                <td>Completed</td>
         `
         elComplete.append(inputText);
     }
