@@ -43,7 +43,7 @@ function render(resultsObject) {
                 <td>${item.task}</td>
                 <td>${item.priority}</td>
                 <td>${newDate}</td>
-                <td><button class="markCompletedBtn">Mark Completed?</button></td>
+                <td><button class="markCompletedBtn">Mark Completed</button></td>
         `
         elToday.append(inputText);
     }
@@ -59,7 +59,7 @@ function render(resultsObject) {
                 <td>${item.task}</td>
                 <td>${item.priority}</td>
                 <td>${newDate}</td>
-                <td><button class="markCompletedBtn">Mark Completed?</button></td>
+                <td><button class="markCompletedBtn">Mark Completed</button></td>
         `
         elSoon.append(inputText);
     }
