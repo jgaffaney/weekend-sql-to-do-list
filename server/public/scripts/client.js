@@ -73,7 +73,9 @@ function render(resultsObject) {
     for(item of resultsObject.today) {
         //convert date to easier to read
         let newDate = item.due_date.split('T')[0]
-
+        if(!item.priority) {
+            item.priority = '';
+        }
         let inputText = `
             <tr data-id="${item.id}">
                 <td>${item.task}</td>
@@ -89,7 +91,9 @@ function render(resultsObject) {
     for(item of resultsObject.soon) {
         // convert date to easier to read
         let newDate = item.due_date.split('T')[0]
-        
+        if(!item.priority) {
+            item.priority = '';
+        }
         let inputText = `
             <tr data-id="${item.id}">
                 <td>${item.task}</td>
@@ -105,7 +109,9 @@ function render(resultsObject) {
     for(item of resultsObject.completed) {
         // convert date to easier to read
         let newDate = item.due_date.split('T')[0]
-
+        if(!item.priority) {
+            item.priority = '';
+        }
         let inputText = `
             <tr data-id="${item.id}">
                 <td>${item.task}</td>
