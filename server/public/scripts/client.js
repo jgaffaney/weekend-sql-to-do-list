@@ -13,7 +13,31 @@ function readyNow() {
 
     // dynamic click listeners
     $('#container').on('click', '.markCompletedBtn', markComplete);
+    $('#container').on('click', '#submitBtn', addNewTask)
 
+}
+
+function addNewTask() {
+    console.log('submit clicked');
+    let newTask = {
+        task: $('#taskIn').val(),
+        due_date: $('#dueDateIn').val(),
+        priority: $('#priorityIn').val()
+    }
+    // clear the inputs
+    $('#addTaskContainer').children().val('');
+    // ajax call to server
+    $.ajax({
+        method: 'POST',
+        url: "/todo",
+        data: {newTask}
+    }).then(function(response) {
+        console.log('POST response from server: ', response');
+        displayList()
+    }).catch(function(error) {
+        console.log('Error on POST: ', error);
+        alert('Error posting new task')
+    })
 }
 
 // a function to remove a class
