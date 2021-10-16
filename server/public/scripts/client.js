@@ -19,7 +19,7 @@ function readyNow() {
 
 function addNewTask() {
     if(!$('#dueDateIn').val()) {
-        alert('Due Date cannot be blank')
+        swal('Oops!', 'Due Date cannot be blank')
     } else {
         $(this).closest('div').addClass('hidden');
         console.log('submit clicked');
