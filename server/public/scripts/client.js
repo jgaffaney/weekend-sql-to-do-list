@@ -10,37 +10,13 @@ function readyNow() {
 }
 
 // function to render to the DOM
-function render(todo) {
-    let completedArray = [];
-    let todayArray = [];
-    let soonArray = [];
-    let today = new Date();
-    // a for loop to divide the response from DB into the three sections for DOM display
-    for(list of todo) {
-        if(list.completed_date) {
-            completedArray.push(list);
-        } else {
-            let dateInQuestion = list.due_date
-            console.log('this is dateinquestion: ', dateInQuestion);
-            
-            // let betterDate = dateInQuestion.toDateString()
-            if(dateInQuestion === today) { //this conditional need work
-                todayArray.push(list)
-            } else {
-                soonArray.push(list)
-            }
-        }
-    }
-    console.log(completedArray);
-    console.log(soonArray);
-    console.log(todayArray);
-    
-    
-    
-
-    let el = $('#dueTodayBody');
-    el.empty();
-    for(item of todo) {
+function render(resultsObject) {
+    // render Due Today table
+    let elToday = $('#dueTodayBody');
+    let elSoon = $('#dueSoonBody');
+    let elComplete = $('#completedBody');
+    elToday.empty();
+    for(item of resultsObject.today) {
         let inputText = `
             <tr>
                 <td>${item.task}</td>
@@ -48,11 +24,37 @@ function render(todo) {
                 <td>${item.due_date}</td>
                 <td><button id="markCompletedBtn">Mark Completed?</button></td>
         `
-        el.append(inputText);
+        elToday.append(inputText);
     }
 
-    console.log('in render');
+    // render Due Soon
+    elSoon.empty();
+    for(item of resultsObject.soon) {
+        let inputText = `
+            <tr>
+                <td>${item.task}</td>
+                <td>${item.priority}</td>
+                <td>${item.due_date}</td>
+                <td><button id="markCompletedBtn">Mark Completed?</button></td>
+        `
+        elSoon.append(inputText);
+    }
+
+    // render completed
+    elComplete.empty();
+    for(item of resultsObject.completed) {
+        let inputText = `
+            <tr>
+                <td>${item.task}</td>
+                <td>${item.priority}</td>
+                <td>${item.due_date}</td>
+                <td><button id="markCompletedBtn">Mark Completed?</button></td>
+        `
+        elComplete.append(inputText);
+    }
 }
+//     console.log('in render');
+// }
 
 //Function to trigger a GET request for table data
 function displayList() {
