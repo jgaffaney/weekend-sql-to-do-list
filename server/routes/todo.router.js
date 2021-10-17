@@ -2,6 +2,25 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool.js')
 
+router.delete('/:id', (req, res) => {
+    console.log('in DELETE');
+    let id = req.params.id;
+    let queryText = `
+    DELETE FROM "todo"
+    WHERE "id" = $1;
+    `
+    pool.query(queryText, [id])
+        .then((response => {
+            console.log('DELETE complete', response);
+            res.sendStatus(204);
+        })).catch((err) => {
+            console.log('Error on DELETE: ', err);
+            res.sendStatus(500);
+            
+        })
+})
+
+
 router.get('/', (req, res) => {
     console.log('in todo.router GET');
     let queryText = `
