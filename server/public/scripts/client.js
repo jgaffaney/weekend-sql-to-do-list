@@ -14,7 +14,35 @@ function readyNow() {
     // dynamic click listeners
     $('#container').on('click', '.markCompletedBtn', markComplete);
     $('#container').on('click', '#submitBtn', addNewTask)
+    $('#container').on('click', ".deleteBtn", deleteTask)
 
+}
+
+function deleteTask() {
+    console.log('Delete Button clicked');
+    swal({
+        title: 'Are you sure you want to Delete?',
+        text: 'This will permanently remove the task from you list and connot be undone',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true
+        }).then(function(willDelete) {
+            if(willDelete) {
+                let id =$(this).closest('tr').data('id');
+                $.ajax({
+                    method: 'DELETE',
+                    url: `/todo/${id}`,
+                    Data: {}
+                }).then(function(response) {
+                    console.log(response);
+                    swal('Your task has been deleted', {icon: success})
+                }).catch(function(err) {
+                    swal('Error in deleting task')
+                })
+        } else {
+            swal('Your task has not been deleted!')
+        }
+        })
 }
 
 function addNewTask() {
@@ -64,6 +92,9 @@ function markComplete() {
     }).then(function (response) {
         console.log(response);
         displayList();
+    }).catch(function(err) {
+        console.log(err);
+        swal('Error in Marking your task complete')
     })
 }
 
@@ -86,6 +117,7 @@ function render(resultsObject) {
                 <td>${item.priority}</td>
                 <td>${newDate}</td>
                 <td><button class="markCompletedBtn">Mark Completed</button></td>
+                <td><button class="deleteBtn">Delete</button></td>
         `
         elToday.append(inputText);
     }
@@ -104,6 +136,7 @@ function render(resultsObject) {
                 <td>${item.priority}</td>
                 <td>${newDate}</td>
                 <td><button class="markCompletedBtn">Mark Completed</button></td>
+                <td><button class="deleteBtn">Delete</button></td>
         `
         elSoon.append(inputText);
     }
@@ -122,6 +155,7 @@ function render(resultsObject) {
                 <td>${item.priority}</td>
                 <td>${newDate}</td>
                 <td>Completed</td>
+                <td><button class="deleteBtn">Delete</button></td>
         `
         elComplete.append(inputText);
     }
