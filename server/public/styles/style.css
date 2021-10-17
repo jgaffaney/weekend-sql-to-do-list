@@ -4,9 +4,6 @@
 body {
     background-color: skyblue;
 }
-button {
-    border-radius: 20px;
-}
 
 .overdue {
     background-color: rgba(255,0,0,0.5)
