@@ -12,3 +12,7 @@ body {
  .priority {
      text-align: center;
  }
+
+ .head {
+     column-width: 100px;
+ }
