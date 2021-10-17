@@ -70,7 +70,7 @@ function addNewTask() {
             displayList()
         }).catch(function(error) {
             console.log('Error on POST: ', error);
-            alert('Error posting new task')
+            swal('Error posting new task')
         })
     }
 }
@@ -175,6 +175,6 @@ function displayList() {
         render(res);
     }).catch((err) => {
         console.log('Error in retrieving from server', err);
-        res.sendStatus(500);
+        swal('Error retrieving data from Database')
     })
 }
