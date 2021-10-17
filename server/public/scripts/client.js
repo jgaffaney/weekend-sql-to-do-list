@@ -20,22 +20,22 @@ function readyNow() {
 
 function deleteTask() {
     console.log('Delete Button clicked');
+    let id = $(this).closest('tr').data('id');
     swal({
         title: 'Are you sure you want to Delete?',
-        text: 'This will permanently remove the task from you list and connot be undone',
+        text: 'This will permanently remove the task from you list and cannot be undone',
         icon: 'warning',
         buttons: true,
         dangerMode: true
         }).then(function(willDelete) {
             if(willDelete) {
-                let id =$(this).closest('tr').data('id');
                 $.ajax({
                     method: 'DELETE',
                     url: `/todo/${id}`,
                     Data: {}
                 }).then(function(response) {
                     console.log(response);
-                    swal('Your task has been deleted', {icon: success})
+                    swal('Your task has been deleted', {icon: "success"})
                 }).catch(function(err) {
                     swal('Error in deleting task')
                 })
