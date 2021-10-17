@@ -21,6 +21,7 @@ function readyNow() {
 function deleteTask() {
     console.log('Delete Button clicked');
     let id = $(this).closest('tr').data('id');
+    // confirm delete
     swal({
         title: 'Are you sure you want to Delete?',
         text: 'This will permanently remove the task from you list and cannot be undone',
@@ -29,6 +30,7 @@ function deleteTask() {
         dangerMode: true
         }).then(function(willDelete) {
             if(willDelete) {
+                // ajax call only if delete confirmed
                 $.ajax({
                     method: 'DELETE',
                     url: `/todo/${id}`,
@@ -111,10 +113,7 @@ function render(resultsObject) {
         let newDate = item.due_date.split('T')[0]
         let today = new Date(compDate).toISOString().split('T')[0]
         console.log('today: ', today);
-        
-        // let now = today.split('T')[0];
-        // console.log('campareDate', compareDate);
-        
+                
         if(!item.priority) {
             item.priority = '';
         }
@@ -125,14 +124,7 @@ function render(resultsObject) {
                 <td>${newDate}</td>
                 <td><button class="btn btn-sm btn-outline-primary markCompletedBtn">Mark Completed</button></td>
                 <td><button class="btn btn-sm btn-outline-danger deleteBtn">Delete</button></td>
-        `)
-        console.log('this is newDate in render: ', newDate);
-        console.log('this is today in render: ', today);
-        // console.log('this is the conditional: ', compareDate.getDate() < today.getDate());
-        
-        
-        console.log('conditional: ', newDate<today);
-        
+        `)        
         if(newDate < today) {
             console.log('this: ', $(this).closest('tr'));
             
@@ -179,8 +171,6 @@ function render(resultsObject) {
         elComplete.append(inputText);
     }
 }
-//     console.log('in render');
-// }
 
 //Function to trigger a GET request for table data
 function displayList() {

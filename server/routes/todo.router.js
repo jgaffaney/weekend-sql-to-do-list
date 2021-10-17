@@ -20,12 +20,11 @@ router.delete('/:id', (req, res) => {
         })
 })
 
-
 router.get('/', (req, res) => {
     console.log('in todo.router GET');
     let queryText = `
     SELECT * FROM "todo"
-    ORDER BY "due_date", "priority";
+    ORDER BY "due_date", "priority" DESC;
     `
     pool.query(queryText)
         .then((result) => {
@@ -39,7 +38,6 @@ router.get('/', (req, res) => {
                 soon: [],
                 today: []
             }
-            // console.log('This is today:', today);
             // separate tasks by date
             for(item of resultArray) {
                 if(item.completed_date) {
@@ -50,9 +48,6 @@ router.get('/', (req, res) => {
                     obj.soon.push(item)
                 } 
             }
-            console.log("this is today array: ", obj.today);
-            
-            // console.log('this is completed object for sending: ', obj);                
             res.send(obj);
         }).catch((err) => {
             console.log('Error on GET to DB: ', err);
