@@ -120,7 +120,7 @@ function render(resultsObject) {
         let inputText = $(`
             <tr data-id="${item.id}">
                 <td>${item.task}</td>
-                <td>${item.priority}</td>
+                <td class="priority">${item.priority}</td>
                 <td>${newDate}</td>
                 <td><button class="btn btn-sm btn-outline-primary markCompletedBtn">Mark Completed</button></td>
                 <td><button class="btn btn-sm btn-outline-danger deleteBtn">Delete</button></td>
@@ -144,7 +144,7 @@ function render(resultsObject) {
         let inputText = `
             <tr data-id="${item.id}">
                 <td>${item.task}</td>
-                <td>${item.priority}</td>
+                <td class="priority">${item.priority}</td>
                 <td>${newDate}</td>
                 <td><button class="btn btn-sm btn-outline-primary markCompletedBtn">Mark Completed</button></td>
                 <td><button class="btn btn-sm btn-outline-danger deleteBtn">Delete</button></td>
@@ -163,7 +163,7 @@ function render(resultsObject) {
         let inputText = `
             <tr data-id="${item.id}">
                 <td>${item.task}</td>
-                <td>${item.priority}</td>
+                <td class="priority">${item.priority}</td>
                 <td>${newDate}</td>
                 <td>Completed</td>
                 <td><button class="btn btn-sm btn-outline-danger deleteBtn">Delete</button></td>
