@@ -100,6 +100,7 @@ function markComplete() {
 
 // function to render to the DOM
 function render(resultsObject) {
+    let compDate = new Date();
     // render Due Today table
     let elToday = $('#dueTodayBody');
     let elSoon = $('#dueSoonBody');
@@ -108,17 +109,35 @@ function render(resultsObject) {
     for(item of resultsObject.today) {
         //convert date to easier to read
         let newDate = item.due_date.split('T')[0]
+        let today = new Date(compDate).toISOString().split('T')[0]
+        console.log('today: ', today);
+        
+        // let now = today.split('T')[0];
+        // console.log('campareDate', compareDate);
+        
         if(!item.priority) {
             item.priority = '';
         }
-        let inputText = `
+        let inputText = $(`
             <tr data-id="${item.id}">
                 <td>${item.task}</td>
                 <td>${item.priority}</td>
                 <td>${newDate}</td>
-                <td><button class="markCompletedBtn">Mark Completed</button></td>
-                <td><button class="deleteBtn">Delete</button></td>
-        `
+                <td><button class="btn btn-sm btn-outline-primary markCompletedBtn">Mark Completed</button></td>
+                <td><button class="btn btn-sm btn-outline-danger deleteBtn">Delete</button></td>
+        `)
+        console.log('this is newDate in render: ', newDate);
+        console.log('this is today in render: ', today);
+        // console.log('this is the conditional: ', compareDate.getDate() < today.getDate());
+        
+        
+        console.log('conditional: ', newDate<today);
+        
+        if(newDate < today) {
+            console.log('this: ', $(this).closest('tr'));
+            
+            inputText.addClass('overdue');
+        }
         elToday.append(inputText);
     }
 
@@ -135,8 +154,8 @@ function render(resultsObject) {
                 <td>${item.task}</td>
                 <td>${item.priority}</td>
                 <td>${newDate}</td>
-                <td><button class="markCompletedBtn">Mark Completed</button></td>
-                <td><button class="deleteBtn">Delete</button></td>
+                <td><button class="btn btn-sm btn-outline-primary markCompletedBtn">Mark Completed</button></td>
+                <td><button class="btn btn-sm btn-outline-danger deleteBtn">Delete</button></td>
         `
         elSoon.append(inputText);
     }
@@ -155,7 +174,7 @@ function render(resultsObject) {
                 <td>${item.priority}</td>
                 <td>${newDate}</td>
                 <td>Completed</td>
-                <td><button class="deleteBtn">Delete</button></td>
+                <td><button class="btn btn-sm btn-outline-danger deleteBtn">Delete</button></td>
         `
         elComplete.append(inputText);
     }

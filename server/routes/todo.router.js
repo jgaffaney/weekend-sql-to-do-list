@@ -44,12 +44,14 @@ router.get('/', (req, res) => {
             for(item of resultArray) {
                 if(item.completed_date) {
                     obj.completed.push(item);                    
-                } else if(item.due_date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0)) {
+                } else if((item.due_date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0)) || (item.due_date < today)) {
                     obj.today.push(item)
                 } else {
                     obj.soon.push(item)
                 } 
             }
+            console.log("this is today array: ", obj.today);
+            
             // console.log('this is completed object for sending: ', obj);                
             res.send(obj);
         }).catch((err) => {
